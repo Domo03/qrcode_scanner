@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
@@ -163,7 +162,8 @@ class _MyAppState extends State<MyApp> {
                                 snackBar = new SnackBar(
                                     content:
                                         new Text('Successful Preservation!'));
-                                Scaffold.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               } else {
                                 snackBar = new SnackBar(
                                     content: new Text('Save failed!'));
@@ -295,7 +295,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future _scanBytes() async {
-    File file = await ImagePicker().getImage(source: ImageSource.camera).then((picked) {
+    File file =
+        await ImagePicker().getImage(source: ImageSource.camera).then((picked) {
       if (picked == null) return null;
       return File(picked.path);
     });
